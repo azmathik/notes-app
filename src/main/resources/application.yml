@@ -1,3 +1,6 @@
 spring:
   application:
     name: Notes App
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/note-app-db
