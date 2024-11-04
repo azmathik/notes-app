@@ -3,4 +3,4 @@ spring:
     name: Notes App
   data:
     mongodb:
-      uri: mongodb://localhost:27017/note-app-db
+      uri: ${SPRING_DATA_MONGODB_URI}
