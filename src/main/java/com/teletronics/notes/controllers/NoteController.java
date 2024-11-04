@@ -31,4 +31,11 @@ public class NoteController {
         note = noteService.save(noteMapper.mapToNote(note, noteDto));
         return new ResponseEntity<>(noteMapper.mapFromNote(note), HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") final String id) {
+        Note note = noteService.findById(id);
+        noteService.delete(note);
+        return ResponseEntity.noContent().build();
+    }
 }

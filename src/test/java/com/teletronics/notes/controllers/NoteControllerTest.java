@@ -2,6 +2,7 @@ package com.teletronics.notes.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teletronics.notes.dtos.NoteDto;
+import com.teletronics.notes.exceptions.ResourceNotFoundException;
 import com.teletronics.notes.mappers.NoteMapper;
 import com.teletronics.notes.models.Note;
 import com.teletronics.notes.services.NoteService;
@@ -16,9 +17,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(NoteController.class)
@@ -103,5 +104,30 @@ public class NoteControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(noteDto)))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void on_delete_GivenNoteValidId_DeletesNote() throws Exception {
+        String id = "1";
+        Note note = new Note();
+        note.setId(id);
+        note.setTitle("Title");
+        note.setText("Text");
+
+        when(noteService.findById(id)).thenReturn(note);
+        mockMvc.perform(delete("/api/notes/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+
+        verify(noteService).delete(note);
+    }
+
+    @Test
+    void on_delete_GivenInvalidNoteId_ThrowsResourceNotFoundException() throws Exception {
+        String invalidId = "invalid-id";
+        when(noteService.findById(invalidId)).thenThrow(new ResourceNotFoundException("Note not found for the given id"));
+        mockMvc.perform(delete("/api/notes/{id}", invalidId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 }
