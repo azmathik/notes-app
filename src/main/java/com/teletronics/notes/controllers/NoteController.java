@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -32,6 +33,12 @@ public class NoteController {
                         Sort.by(Sort.Direction.DESC, "createdDate")))
                 .map(entry -> noteMapper.mapFromNoteProjection(entry));
         return new ResponseEntity<>(page, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/text")
+    public ResponseEntity<String> findNoteText(@PathVariable("id") final String id) {
+        String text = noteService.getNoteText(id);
+        return new ResponseEntity<>(text, HttpStatus.OK);
     }
 
     @PostMapping
