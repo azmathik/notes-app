@@ -3,6 +3,7 @@ package com.teletronics.notes.mappers;
 import com.teletronics.notes.dtos.NoteDto;
 import com.teletronics.notes.models.Note;
 import com.teletronics.notes.models.Tag;
+import com.teletronics.notes.repositories.NoteProjection;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -45,5 +46,12 @@ public class NoteMapper {
         }
         return noteDto;
     }
-    
+
+    public NoteDto mapFromNoteProjection(NoteProjection source) {
+        NoteDto noteDto = new NoteDto();
+        noteDto.setId(source.getId());
+        noteDto.setTitle(source.getTitle());
+        noteDto.setCreatedDate(source.getCreatedDate());
+        return noteDto;
+    }
 }
