@@ -27,4 +27,8 @@ public class NoteService {
                 .orElseThrow(()-> new ResourceNotFoundException("Note not found for the given id"));
     }
 
+    public void delete(Note note) {
+        noteRepository.delete(note);
+    }
+
 }

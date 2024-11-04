@@ -67,4 +67,14 @@ public class NoteServiceTest {
         when(noteRepository.findById(new ObjectId(invalidId).toString())).thenReturn(Optional.empty());
         assertThrows(ResourceNotFoundException.class, () -> noteService.findById(invalidId));
     }
+
+    @Test
+    void givenNote_DeletesNote() {
+        Note note = new Note();
+        note.setId("1");
+        note.setTitle("Title");
+        note.setText("Text");
+        noteService.delete(note);
+        verify(noteRepository, times(1)).delete(note); // Verify delete is called once with the correct note
+    }
 }
