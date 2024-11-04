@@ -124,14 +124,10 @@ public class NoteControllerTest {
 
     @Test
     void on_delete_GivenInvalidNoteId_ThrowsResourceNotFoundException() throws Exception {
-        // Arrange
         String invalidId = "invalid-id";
-
         when(noteService.findById(invalidId)).thenThrow(new ResourceNotFoundException("Note not found for the given id"));
-
-        // Act & Assert
         mockMvc.perform(delete("/api/notes/{id}", invalidId)
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound()); // Expecting 404 Not Found
+                .andExpect(status().isNotFound());
     }
 }
