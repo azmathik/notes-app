@@ -1,6 +1,10 @@
 # Notes App
 This repository is the backend service for the Notes App, a RESTful API built with Spring Boot for managing simple notes. The Notea App APIs enables users to store, flter, view, update, and delete notes, making it easy to store and organize textual information. This API is designed to serve as the backend layer for a note-taking application and is easily extensible for additional features.
 
+![Build Status](https://github.com/azmathik/notes-app/actions/workflows/ci.yml/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/azmathik/notes-app/badge.svg)](https://coveralls.io/github/azmathik/notes-app)
+![License](https://img.shields.io/github/license/azmathik/notes-app)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/azmathik/notes-app)
 ## Features
 - Create notes with title or text. Also optionaly allows to add tags to the notes.
 - List notes, filter by tags
@@ -59,7 +63,7 @@ This application uses GitHub Actions for CI/CD (CD is not implemented as the par
 
 GitHub Actions eliminates the need dedicated resources to set up and maintain CI/CD pipelines. Since GitHub Actions is fully integrated with GitHub, we can set any webhook as an event trigger for CI/CD pipeline.
 
-In this application the __CI__ is setup on the __main__ branch. When merged to the __main__ the CI is triggered which will compile, test, build the docker image and push the docker image to the docker repository in order.
+In this application the __CI__ is setup on the __main__ branch. When pushed to the __main__ the CI is triggered which will compile, test, build the docker image and push the docker image to the docker repository in order.
 
 
 ## How to run the application?
@@ -68,7 +72,7 @@ In this application the __CI__ is setup on the __main__ branch. When merged to t
 
 - SPRING_DATA_MONGODB_URI = mongodb://localhost:27017/note-app-db (Change this value as per your settings)
 
-### Run using the Docker image
+### Run the Docker image
 
 ```
 //Pull the docker image
@@ -77,7 +81,7 @@ docker pull azmathikram/cloudquill-api:latest
 // Run the docker image 
 docker run \
  -e "SPRING_DATA_MONGODB_URI"mongodb://localhost:27017/note-app-db" \
- -p 8080:8080 azmathikram/cloudquill-api:latest
+ -p 8080:8080 azmathikram/cloudquill-api:latest  java -jar /opt/app/notes-app.jar
 ```
 
 ### Clone the repository and run locally
@@ -98,12 +102,4 @@ export SPRING_DATA_MONGODB_URI="mongodb://localhost:27017/note-app-db"
 //Run the app
 ./mvnw spring-boot:run
 ```
-
-
-
-
-
-
-
-
-
+When running the application using an IDE, you can set up SPRING_DATA_MONGODB_URI as an environment variable.
