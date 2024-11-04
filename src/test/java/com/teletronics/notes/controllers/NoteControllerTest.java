@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(NoteController.class)
@@ -68,5 +69,39 @@ public class NoteControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(noteDto)))
                         .andExpect(status().isCreated());
+    }
+
+    @Test
+    void on_update_GivenValidIdAndNoteDto_ReturnsUpdatedNoteDto() throws Exception {
+        // Arrange
+        String id = "1";
+        NoteDto noteDto = new NoteDto();
+        noteDto.setTitle("Updated Title");
+        noteDto.setText("Updated Text");
+
+        Note existingNote = new Note();
+        existingNote.setId(id);
+        existingNote.setTitle("Original Title");
+        existingNote.setText("Original Text");
+
+        Note updatedNote = new Note();
+        updatedNote.setId(id);
+        updatedNote.setTitle("Updated Title");
+        updatedNote.setText("Updated Text");
+
+        NoteDto updatedNoteDto = new NoteDto();
+        updatedNoteDto.setId(id);
+        updatedNoteDto.setTitle("Updated Title");
+        updatedNoteDto.setText("Updated Text");
+
+        when(noteService.findById(id)).thenReturn(existingNote);
+        when(noteMapper.mapToNote(existingNote, noteDto)).thenReturn(updatedNote);
+        when(noteService.save(updatedNote)).thenReturn(updatedNote);
+        when(noteMapper.mapFromNote(updatedNote)).thenReturn(updatedNoteDto);
+
+        mockMvc.perform(put("/api/notes/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(noteDto)))
+                .andExpect(status().isOk());
     }
 }
