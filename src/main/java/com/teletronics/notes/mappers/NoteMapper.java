@@ -1,7 +1,5 @@
 package com.teletronics.notes.mappers;
 
-
-//import com.cloudquill.projections.NoteProjection;
 import com.teletronics.notes.dtos.NoteDto;
 import com.teletronics.notes.models.Note;
 import com.teletronics.notes.models.Tag;
@@ -47,12 +45,5 @@ public class NoteMapper {
         }
         return noteDto;
     }
-
-//    public NoteDto mapFromNoteProjection(NoteProjection source) {
-//        NoteDto noteDto = new NoteDto();
-//        noteDto.setId(source.getId());
-//        noteDto.setTitle(source.getTitle());
-//        noteDto.setCreatedDate(source.getCreatedDate());
-//        return noteDto;
-//    }
+    
 }
