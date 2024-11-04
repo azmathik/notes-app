@@ -20,3 +20,7 @@ FROM amazoncorretto:17-alpine3.17
 WORKDIR /opt/app
 
 COPY --from=stage1 /opt/app/target/notes-app.jar /opt/app
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "/opt/app/notes-app.jar"]
