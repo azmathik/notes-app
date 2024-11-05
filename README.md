@@ -2,9 +2,9 @@
 This repository is the backend service for the Notes App, a RESTful API built with Spring Boot for managing simple notes. The Notea App APIs enables users to store, flter, view, update, and delete notes, making it easy to store and organize textual information. This API is designed to serve as the backend layer for a note-taking application and is easily extensible for additional features.
 
 ![Build Status](https://github.com/azmathik/notes-app/actions/workflows/ci.yml/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/azmathik/notes-app/badge.svg)](https://coveralls.io/github/azmathik/notes-app)
 ![License](https://img.shields.io/github/license/azmathik/notes-app)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/azmathik/notes-app)
+![Java](https://img.shields.io/badge/java-17-blue)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.5-brightgreen)
 ## Features
 - Create notes with title or text. Also optionaly allows to add tags to the notes.
 - List notes, filter by tags
