@@ -36,7 +36,7 @@ public class NoteController {
     }
 
     @GetMapping("/{id}/text")
-    public ResponseEntity<String> findNoteText(@PathVariable("id") final String id) {
+    public ResponseEntity<String> findNoteText(@PathVariable("id") final String id) throws Exception {
         String text = noteService.getNoteText(id);
         return new ResponseEntity<>(text, HttpStatus.OK);
     }
