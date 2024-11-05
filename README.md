@@ -254,6 +254,7 @@ Text of the note
     "statusCode": 500,
     "timestamp": "2024-11-05T05:56:32.189+00:00",
     "message": "Error...",
+    "message": "Error message",
     "description": "uri=/api/notes/6729655c5b770c62ea74c1ssfb/text"
 }
 ```
@@ -285,7 +286,7 @@ Text of the note
 {
     "statusCode": 500,
     "timestamp": "2024-11-05T05:51:59.607+00:00",
-    "message": "Error in finding a note",
+    "message": "Error message",
     "description": "uri=/api/notes/6729b244b1996d50de8b9e7712"
 }
 ```
@@ -352,16 +353,16 @@ pageSize:Integer
 - Response : Status 500
 ```
 {
-    "statusCode": 404,
-    "timestamp": "2024-11-05T08:15:32.077+00:00",
-    "message": "Note not found for the given id",
-    "description": "uri=/api/notes/672965511c5b770c62ea74c1fb/text"
+    "statusCode": 500,
+    "timestamp": "2024-11-05T05:45:20.237+00:00",
+    "message": "Error message",
+    "description": "uri=/api/notes?tags=IMPORTANT&pageNumber=0&pageSize=20"
 }
 ```
 
 #### 3. Get stats of the occurences of a string in a given text
 
-- URL: http://localhost:8080/api/v1/notes/{id}/text
+- URL: http://localhost:8080/api/v1/notes/stats
 - Content-Type: text/plain
 - Method: POST
 - Description: Get stats of the occurences of a string in a given text as a map<key : string, value: occurences>. Result will sorted in the descending order of the keys. 
