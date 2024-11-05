@@ -78,7 +78,7 @@ jobs:
       - name: Build & push the image
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
-          image: azmathikram/cloudquill-api
+          image: azmathikram/notes-app
           tags: latest
           registry: docker.io
           dockerfile: Dockerfile
