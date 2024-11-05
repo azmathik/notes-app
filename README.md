@@ -64,7 +64,6 @@ This application uses GitHub Actions for CI/CD (CD is not implemented as the par
 GitHub Actions eliminates the need dedicated resources to set up and maintain CI/CD pipelines. Since GitHub Actions is fully integrated with GitHub, we can set any webhook as an event trigger for CI/CD pipeline.
 
 In this application the __CI__ is setup on the __main__ branch. When pushed to the __main__ the CI is triggered which will compile, test, build the docker image and push the docker image to the docker repository in order.
-ci.drawio.png
 
 ![alt text](https://github.com/azmathik/notes-app/blob/develop/ci.drawio.png?raw=true)
 
