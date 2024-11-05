@@ -36,7 +36,7 @@ public class NoteController {
     }
 
     @GetMapping("/{id}/text")
-    public ResponseEntity<String> findNoteText(@PathVariable("id") final String id) {
+    public ResponseEntity<String> findNoteText(@PathVariable("id") final String id) throws Exception {
         String text = noteService.getNoteText(id);
         return new ResponseEntity<>(text, HttpStatus.OK);
     }
@@ -49,14 +49,14 @@ public class NoteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<NoteDto> update(@PathVariable("id") final String id, @Valid @RequestBody final NoteDto noteDto) {
+    public ResponseEntity<NoteDto> update(@PathVariable("id") final String id, @Valid @RequestBody final NoteDto noteDto) throws Exception{
         Note note = noteService.findById(id);
         note = noteService.save(noteMapper.mapToNote(note, noteDto));
         return new ResponseEntity<>(noteMapper.mapFromNote(note), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") final String id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") final String id) throws Exception {
         Note note = noteService.findById(id);
         noteService.delete(note);
         return ResponseEntity.noContent().build();
