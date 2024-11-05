@@ -77,12 +77,12 @@ In this application the __CI__ is setup on the __main__ branch. When pushed to t
 
 ```
 //Pull the docker image
-docker pull azmathikram/cloudquill-api:latest
+docker pull azmathikram/notes-app:latest
 
 // Run the docker image 
 docker run \
- -e "SPRING_DATA_MONGODB_URI"mongodb://localhost:27017/note-app-db" \
- -p 8080:8080 azmathikram/cloudquill-api:latest  java -jar /opt/app/notes-app.jar
+ -e "SPRING_DATA_MONGODB_URI="mongodb://localhost:27017/note-app-db" \
+ -p 8080:8080 azmathikram/cloudquill-api:latest
 ```
 
 ### Clone the repository and run locally
