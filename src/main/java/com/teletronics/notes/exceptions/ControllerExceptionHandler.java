@@ -14,7 +14,6 @@ import java.util.Date;
 @ResponseBody
 public class ControllerExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
-
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ErrorMessage> handleRuntimeException(RuntimeException ex, WebRequest request) {
         ErrorMessage message = new ErrorMessage(

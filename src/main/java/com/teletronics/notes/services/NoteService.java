@@ -23,10 +23,14 @@ public class NoteService {
     private NoteRepository noteRepository;
 
     public Page<NoteProjection> findAll(Set<String> tags, Pageable pageable) {
-        if(CollectionUtils.isEmpty(tags)){
-            return noteRepository.findAllProjectedBy(pageable);
+        try {
+            if(CollectionUtils.isEmpty(tags)){
+                return noteRepository.findAllProjectedBy(pageable);
+            }
+            return noteRepository.findByTagsIn(tags, pageable);
+        } catch(Exception e) {
+            throw new RuntimeException("Error in getting notes page");
         }
-        return noteRepository.findByTagsIn(tags, pageable);
     }
 
     public Note save(Note note) {
@@ -34,22 +38,35 @@ public class NoteService {
             note = noteRepository.save(note);
             return note;
         } catch (Exception e) {
-            throw new RuntimeException("Error in creating the new note");
+            throw new RuntimeException("Error in creating or updating the note");
         }
     }
 
     public Note findById(String id) {
-        return noteRepository.findById(String.valueOf(new ObjectId(id)))
-                .orElseThrow(()-> new ResourceNotFoundException("Note not found for the given id"));
+        try {
+            return noteRepository.findById(String.valueOf(new ObjectId(id)))
+                    .orElseThrow(()-> new ResourceNotFoundException("Note not found for the given id"));
+        } catch (Exception e) {
+            throw new RuntimeException("Error in finding a note");
+        }
+
     }
 
     public String getNoteText(String id) {
-        Note note = findById(id);
-        return note.getText();
+        try {
+            Note note = findById(id);
+            return note.getText();
+        } catch (Exception e) {
+            throw new RuntimeException("Error in getting the note text");
+        }
     }
 
     public void delete(Note note) {
+        try {
         noteRepository.delete(note);
+        } catch (Exception e) {
+            throw new RuntimeException("Error in deleting a note");
+        }
     }
 
     public Map<String, Integer> findUniqueOccurrence(String noteText) {
