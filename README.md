@@ -26,6 +26,8 @@ This repository is the backend service for the Notes App, a RESTful API built wi
 ### Application architecture
 This project uses a simple Spring Boot RESTful application architecture. It uses Data Transfer Object (DTO) pattern to transfer data from/to the application.
 
+Controller layer receives the request from the client. Once the request is completed it returns the response back to the client.
+
 Service layer is intended to seperate the business logic and it uses the respository layer to read data from the database, and to persist data in the database.
 
 Mapper classes are used to perform dto transformations. These custom mapper classes are intended to be used for simple object transformations.
