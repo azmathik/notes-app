@@ -268,9 +268,9 @@ Text of the note
 - Description: Get paginated notes
 - Request params:
 ```
-tags : Comma seperated list of values. Possible values  [BUSINESS, PERSONAL,IMPORTANT]
+tags: Comma seperated list of values. Possible values  [BUSINESS, PERSONAL,IMPORTANT]
 pageNumber: Integer
-pageSize=Integer
+pageSize:Integer
 ```
 - Request Body:
 ```
