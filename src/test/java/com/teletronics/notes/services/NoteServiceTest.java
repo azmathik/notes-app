@@ -56,7 +56,7 @@ public class NoteServiceTest {
     }
 
     @Test
-    void givenValidId_findById_ReturnsNote() {
+    void givenValidId_findById_ReturnsNote() throws Exception {
         String id = new ObjectId().toString();
         Note expectedNote = new Note();
         expectedNote.setId(id);
