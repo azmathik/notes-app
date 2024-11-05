@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -34,6 +35,12 @@ public class NoteController {
         return new ResponseEntity<>(page, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}/text")
+    public ResponseEntity<String> findNoteText(@PathVariable("id") final String id) {
+        String text = noteService.getNoteText(id);
+        return new ResponseEntity<>(text, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<NoteDto> create(@Valid @RequestBody final NoteDto noteDto) {
             Note note = noteMapper.mapToNote(null, noteDto);
@@ -53,5 +60,11 @@ public class NoteController {
         Note note = noteService.findById(id);
         noteService.delete(note);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping(value = "/stats", consumes = "text/plain")
+    public ResponseEntity<Map<String, Integer>> getStatsForText(@Valid @RequestBody String noteText) {
+        Map<String, Integer> stats  = noteService.findUniqueOccurrence(noteText);
+        return new ResponseEntity<>(stats, HttpStatus.OK);
     }
 }
