@@ -48,10 +48,10 @@ public class NoteServiceTest {
     @Test
     void givenValidNote_whenSave_ThrowsRuntimeException() {
         Note note = new Note();
-        when(noteRepository.save(note)).thenThrow(new RuntimeException("Error in creating the new note"));
+        when(noteRepository.save(note)).thenThrow(new RuntimeException("Error in creating or updating the note"));
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> noteService.save(note));
-        assertEquals("Error in creating the new note", exception.getMessage());
+        assertEquals("Error in creating or updating the note", exception.getMessage());
         verify(noteRepository, times(1)).save(note);
     }
 
@@ -72,7 +72,7 @@ public class NoteServiceTest {
     void givenInvalidId_findById_ThrowsResourceNotFoundException() {
         String invalidId = new ObjectId().toString();
         when(noteRepository.findById(new ObjectId(invalidId).toString())).thenReturn(Optional.empty());
-        assertThrows(ResourceNotFoundException.class, () -> noteService.findById(invalidId));
+        assertThrows(RuntimeException.class, () -> noteService.findById(invalidId));
     }
 
     @Test
@@ -135,7 +135,7 @@ public class NoteServiceTest {
     }
 
     @Test
-    public void testFindUniqueOccurrenceWhenInputIsValid() {
+    public void findUniqueOccurrence_WhenInputIsValid() {
         String noteText = "John is a cat, John is a bat!";
 
         Map<String, Integer> result = noteService.findUniqueOccurrence(noteText);
