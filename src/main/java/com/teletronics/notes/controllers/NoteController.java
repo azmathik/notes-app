@@ -61,4 +61,10 @@ public class NoteController {
         noteService.delete(note);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping(value = "/stats", consumes = "text/plain")
+    public ResponseEntity<Map<String, Integer>> getStatsForText(@Valid @RequestBody String noteText) {
+        Map<String, Integer> stats  = noteService.findUniqueOccurrence(noteText);
+        return new ResponseEntity<>(stats, HttpStatus.OK);
+    }
 }

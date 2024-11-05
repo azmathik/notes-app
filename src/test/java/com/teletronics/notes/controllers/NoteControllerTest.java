@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -224,5 +225,26 @@ public class NoteControllerTest {
                 .andExpect(jsonPath("$.content[0].id").value("1"))
                 .andExpect(jsonPath("$.content[1].id").value("2"))
                 .andExpect(jsonPath("$.totalElements").value(5));
+    }
+
+    @Test
+    public void givenAText_Get_Stats() throws Exception {
+        String inputText = "note is just a note";
+        Map<String, Integer> mockResponse = Map.of(
+                "note", 2,
+                "is", 1,
+                "just", 1,
+                "a", 1
+        );
+        when(noteService.findUniqueOccurrence(inputText)).thenReturn(mockResponse);
+        mockMvc.perform(post("/api/notes/stats")
+                        .contentType(MediaType.TEXT_PLAIN)
+                        .content(inputText))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.note").value(2))
+                .andExpect(jsonPath("$.is").value(1))
+                .andExpect(jsonPath("$.just").value(1))
+                .andExpect(jsonPath("$.a").value(1));
     }
 }
