@@ -247,6 +247,7 @@ Text of the note
     "description": "uri=/api/notes/672965511c5b770c62ea74c1fb/text"
 }
 ```
+
 - Response : Status 500
 ```
 {
@@ -269,6 +270,15 @@ Text of the note
 - Response : Status 204
 ```
 //No content
+```
+- Response : Status 404
+```
+{
+    "statusCode": 404,
+    "timestamp": "2024-11-05T08:15:32.077+00:00",
+    "message": "Note not found for the given id",
+    "description": "uri=/api/notes/672965511c5b770c62ea74c1fb/text"
+}
 ```
 - Response : Status 500
 ```
