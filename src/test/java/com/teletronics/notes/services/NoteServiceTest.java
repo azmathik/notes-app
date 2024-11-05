@@ -1,5 +1,6 @@
 package com.teletronics.notes.services;
 
+import com.teletronics.notes.comparators.DescendingOrderIgnoringCaseComparator;
 import com.teletronics.notes.dtos.NoteDto;
 import com.teletronics.notes.exceptions.ResourceNotFoundException;
 import com.teletronics.notes.models.Note;
@@ -14,10 +15,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.*;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -134,5 +132,42 @@ public class NoteServiceTest {
         assertThat(result.getContent()).hasSize(2);
         assertThat(result.getTotalElements()).isEqualTo(2);
         assertThat(result.getContent().get(0).getTitle()).isEqualTo("First Note");
+    }
+
+    @Test
+    public void testFindUniqueOccurrenceWhenInputIsValid() {
+        String noteText = "John is a cat, John is a bat!";
+
+        Map<String, Integer> result = noteService.findUniqueOccurrence(noteText);
+
+        Map<String, Integer> expected = new TreeMap<>(new DescendingOrderIgnoringCaseComparator());
+        expected.put("john", 2);
+        expected.put("is", 2);
+        expected.put("cat", 1);
+        expected.put("a", 2);
+        expected.put("bat", 1);
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testFindUniqueOccurrenceWhenEmptyInput() {
+        String noteText = "";
+        Map<String, Integer> result = noteService.findUniqueOccurrence(noteText);
+        System.out.println(result);
+        Map<String, Integer> expected = new TreeMap<>(new DescendingOrderIgnoringCaseComparator());
+        System.out.println(expected);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testFindUniqueOccurrenceWhenSpecialCharacters() {
+        String noteText = "Hello, Hello!! World@@";
+        Map<String, Integer> result = noteService.findUniqueOccurrence(noteText);
+        Map<String, Integer> expected = new TreeMap<>(new DescendingOrderIgnoringCaseComparator());
+        expected.put("hello", 2);
+        expected.put("world", 1);
+
+        assertEquals(expected, result);
     }
 }
