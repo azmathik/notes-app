@@ -11,7 +11,7 @@ This repository is the backend service for the Notes App, a RESTful API built wi
 - Update or delete notes.
 - Check occurrences of a word in a given note text
 
-## Tech stack
+## Programming Languages, Frameworks, Database & Tools used
 - Java 17
 - Spring Boot
 - Maven
