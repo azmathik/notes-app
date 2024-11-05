@@ -42,18 +42,14 @@ public class NoteService {
         }
     }
 
-    public Note findById(String id) throws  Exception{
+    public Note findById(String id) throws  Exception {
         return noteRepository.findById(id)
                     .orElseThrow(()-> new ResourceNotFoundException("Note not found for the given id"));
     }
 
-    public String getNoteText(String id) {
-        try {
+    public String getNoteText(String id) throws Exception {
             Note note = findById(id);
             return note.getText();
-        } catch (Exception e) {
-            throw new RuntimeException("Error in getting the note text");
-        }
     }
 
     public void delete(Note note) {
