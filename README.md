@@ -77,7 +77,7 @@ In this application the __CI__ is setup on the __main__ branch. When pushed to t
 
 ```
 //Pull the docker image
-docker pull azmathikram/cloudquill-api:latest
+docker pull azmathikram/notes-app:latest
 
 // Run the docker image 
 docker run \
