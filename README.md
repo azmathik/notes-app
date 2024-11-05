@@ -196,6 +196,16 @@ http://localhost:8080/api/v1
     "lastModifiedDate": "2024-11-03T21:51:01.542Z"
 } 
 ```
+- Response : Status 404
+```
+{
+    "statusCode": 404,
+    "timestamp": "2024-11-05T08:10:56.107+00:00",
+    "message": "Note not found for the given id",
+    "description": "uri=/api/notes/6729cf6cf9bb712rrca4e8cb0c"
+}
+```
+
 - Response : Status 500
 ```
 {
@@ -228,12 +238,21 @@ http://localhost:8080/api/v1
 ```
 Text of the note
 ```
+- Response : Status 404
+```
+{
+    "statusCode": 404,
+    "timestamp": "2024-11-05T08:15:32.077+00:00",
+    "message": "Note not found for the given id",
+    "description": "uri=/api/notes/672965511c5b770c62ea74c1fb/text"
+}
+```
 - Response : Status 500
 ```
 {
     "statusCode": 500,
     "timestamp": "2024-11-05T05:56:32.189+00:00",
-    "message": "Error in getting the note text",
+    "message": "Error...",
     "description": "uri=/api/notes/6729655c5b770c62ea74c1ssfb/text"
 }
 ```
@@ -323,10 +342,10 @@ pageSize:Integer
 - Response : Status 500
 ```
 {
-    "statusCode": 500,
-    "timestamp": "2024-11-05T05:45:20.237+00:00",
-    "message": "Error in getting notes pag",
-    "description": "uri=/api/notes?tags=IMPORTANT&pageNumber=0&pageSize=20"
+    "statusCode": 404,
+    "timestamp": "2024-11-05T08:15:32.077+00:00",
+    "message": "Note not found for the given id",
+    "description": "uri=/api/notes/672965511c5b770c62ea74c1fb/text"
 }
 ```
 
